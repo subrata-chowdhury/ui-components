@@ -9,9 +9,9 @@ export default function Home() {
       <InputBox label="Email" size="sm" variant="outlined" />
       <DataTable
         data={[
-          { id: 1, name: "Alice", email: "alice@example.com" },
-          { id: 2, name: "Bob", email: "bob@example.com" },
-          { id: 3, name: "Charlie", email: "charlie@example.com" },
+          { id: 1, name: "Subrata", email: "sub@example.com" },
+          { id: 2, name: "Sayan", email: "say@example.com" },
+          { id: 3, name: "Rakesh", email: "ra@example.com" },
         ]}
         columns={[
           { key: "id", title: "ID", dataIndex: "id" },

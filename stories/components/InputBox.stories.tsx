@@ -9,10 +9,8 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  args: {
-    onChange: (e) => {
-      console.log("Selected Rows:", e.target.value);
-    }
+  argTypes: {
+    onChange: { action: "changed" }, // 👈 shows event in Actions tab
   },
 } satisfies Meta<typeof InputBox>;
 
@@ -91,5 +89,23 @@ export const Clear: Story = {
     size: "sm",
     label: "Clear Input",
     clearable: true,
+  },
+};
+
+export const HelperText: Story = {
+  args: {
+    variant: "outlined",
+    size: "sm",
+    label: "Input with Helper Text",
+    helperText: "This is some helper text"
+  },
+};
+
+export const Loading: Story = {
+  args: {
+    variant: "outlined",
+    size: "sm",
+    label: "Input with Loading",
+    loading: true
   },
 };

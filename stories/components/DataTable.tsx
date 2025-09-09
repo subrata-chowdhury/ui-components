@@ -12,7 +12,7 @@ interface DataTableProps<T> {
 interface Column<T> {
     key: string;
     title: string;
-    dataIndex: keyof T;
+    dataIndex: keyof T | string;
     sortable?: boolean;
 }
 
@@ -38,9 +38,10 @@ const DataTable = <T,>({
             <table className="min-w-full">
                 <thead className="bg-gray-100">
                     <tr>
-                        {selectable && <th className="p-2 border-b border-gray-300 dark:bg-gray-700">
+                        {selectable && <th className="p-2 px-3 border-b border-gray-300 dark:bg-gray-700">
                             <input
                                 type="checkbox"
+                                className='cursor-pointer'
                                 checked={allSelected}
                                 aria-label="Select all rows"
                                 onChange={e => {
@@ -58,7 +59,7 @@ const DataTable = <T,>({
                             />
                         </th>}
                         {columns.map((col) => (
-                            <th key={col.key} className="p-2 text-left border-b border-gray-300 dark:bg-gray-700">
+                            <th key={col.key} className="p-2 px-3 text-left border-b border-gray-300 dark:bg-gray-700">
                                 {col.title}
                                 {col.sortable && <span className="ml-1 cursor-pointer" onClick={() => {
                                     setSelectedRows(Array(data.length).fill(false));
@@ -66,11 +67,11 @@ const DataTable = <T,>({
                                     onRowSelect && onRowSelect([]);
                                     const isSortedAsc = tableData.every((_, i, arr) => {
                                         if (i === 0) return true;
-                                        return arr[i - 1][col.dataIndex] <= arr[i][col.dataIndex];
+                                        return arr[i - 1][col.dataIndex as keyof T] <= arr[i][col.dataIndex as keyof T];
                                     });
                                     const sortedData = [...tableData].sort((a, b) => {
-                                        if (a[col.dataIndex] < b[col.dataIndex]) return isSortedAsc ? 1 : -1;
-                                        if (a[col.dataIndex] > b[col.dataIndex]) return isSortedAsc ? -1 : 1;
+                                        if (a[col.dataIndex as keyof T] < b[col.dataIndex as keyof T]) return isSortedAsc ? 1 : -1;
+                                        if (a[col.dataIndex as keyof T] > b[col.dataIndex as keyof T]) return isSortedAsc ? -1 : 1;
                                         return 0;
                                     });
                                     setTableData(sortedData);
@@ -82,8 +83,8 @@ const DataTable = <T,>({
                 <tbody>
                     {loading ? (
                         <tr>
-                            <td colSpan={columns.length + (selectable ? 1 : 0)} className="p-2 text-center dark:bg-gray-950">
-                                <span className="inline-block w-6 h-6 border-2 border-t-transparent border-blue-500 rounded-full animate-spin"></span>
+                            <td colSpan={columns.length + (selectable ? 1 : 0)} className="p-2 px-3 text-center dark:bg-gray-950">
+                                <span className="inline-block w-6 h-6 border-2 border-t-transparent border-blue-700 rounded-full animate-spin"></span>
                             </td>
                         </tr>
                     ) : tableData.length === 0 ? (
@@ -94,10 +95,11 @@ const DataTable = <T,>({
                         </tr>
                     ) : (
                         tableData.map((item, rowIndex) => (
-                            <tr key={rowIndex} className="hover:bg-gray-50">
-                                {selectable && <td className="p-2 border-b border-gray-300 text-center">
+                            <tr key={rowIndex} className="hover:bg-gray-50 has-[:checked]:bg-blue-200/40 ">
+                                {selectable && <td className="p-2 px-3 border-b border-gray-300 text-center">
                                     <input
                                         type="checkbox"
+                                        className='cursor-pointer outline-0 border-2 border-gray-100 p-0.5'
                                         checked={selectedRows[rowIndex] || false}
                                         aria-label={`Select row ${rowIndex + 1}`}
                                         onChange={e => {
@@ -114,8 +116,8 @@ const DataTable = <T,>({
                                     />
                                 </td>}
                                 {columns.map((col) => (
-                                    <td key={col.key} className="p-2 border-b border-gray-300">
-                                        {String(item[col.dataIndex])}
+                                    <td key={col.key} className="p-2 px-3 border-b border-gray-300">
+                                        {String(item[col.dataIndex as keyof T])}
                                     </td>
                                 ))}
                             </tr>

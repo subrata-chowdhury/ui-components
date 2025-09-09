@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-
 import DataTable from './DataTable';
 
 const meta = {
@@ -8,11 +7,9 @@ const meta = {
   parameters: {
     layout: 'centered',
   },
-  args: {
-    onRowSelect: (selectedRows) => {
-      console.log("Selected Rows:", selectedRows);
-    }
-  }
+  argTypes: {
+    onRowSelect: { action: "selected" }, // 👈 shows event in Actions tab
+  },
 } satisfies Meta<typeof DataTable>;
 
 export default meta;
@@ -20,9 +17,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 const DATA = [
-  { id: 1, name: "Alice", email: "alice@example.com" },
-  { id: 2, name: "Bob", email: "bob@example.com" },
-  { id: 3, name: "Charlie", email: "charlie@example.com" },
+  { id: 1, name: "Subrata", email: "sub@example.com" },
+  { id: 2, name: "Sayan", email: "say@example.com" },
+  { id: 3, name: "Rakesh", email: "ra@example.com" },
 ]
 const COLUMNS = [
   { key: "id", title: "ID", dataIndex: "id" },
@@ -75,7 +72,7 @@ export const Selectable_Sortable: Story = {
 export const Empty: Story = {
   args: {
     data: [],
-    columns: SORTABLE_COLUMNS,
+    columns: COLUMNS,
     loading: false,
   }
 };
@@ -84,7 +81,7 @@ export const Empty: Story = {
 export const Loading: Story = {
   args: {
     data: [],
-    columns: SORTABLE_COLUMNS,
+    columns: COLUMNS,
     loading: true,
   }
 };

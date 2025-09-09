@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { X, Eye, EyeOff, Loader2 } from "lucide-react";
+import { X, Eye, EyeOff, Loader2, InfoIcon, LucideMailWarning, MessageCircleWarning } from "lucide-react";
 
 interface InputFieldProps {
     value?: string;
@@ -13,9 +13,11 @@ interface InputFieldProps {
     invalid?: boolean;
     variant?: 'filled' | 'outlined' | 'ghost';
     size?: 'sm' | 'md' | 'lg';
-    type?: 'text' | 'password' | 'email' | 'number';
+
+    type?: string;
     clearable?: boolean;
     passwordToggle?: boolean;
+    loading?: boolean;
 }
 
 
@@ -30,9 +32,11 @@ const InputBox = ({
     invalid = false,
     variant = 'outlined',
     size = 'md',
+
     type = 'text',
     clearable,
-    passwordToggle
+    passwordToggle,
+    loading = false,
 }: InputFieldProps) => {
     const [showPassword, setShowPassword] = useState(false);
 
@@ -57,7 +61,7 @@ const InputBox = ({
                     value={value}
                     onChange={onChange}
                     placeholder={placeholder}
-                    disabled={disabled}
+                    disabled={disabled || loading}
 
                     className={`w-full rounded border placeholder:text-xs 
                     focus:outline-none focus:ring-1 focus:ring-blue-500 
@@ -82,11 +86,7 @@ const InputBox = ({
                             ${(passwordToggle && type === "password") ? 'rounded-r-none' : ''}
                             ${variant === 'filled' ? 'bg-gray-100 dark:bg-gray-800 border-gray-300'
                                 : (variant === 'outlined' ? 'border-gray-300' : 'bg-transparent border-none')}`}
-                        onClick={() =>
-                            onChange?.({
-                                target: { value: "" },
-                            } as React.ChangeEvent<HTMLInputElement>)
-                        }
+                        onClick={() => onChange?.({ target: { value: "" } } as React.ChangeEvent<HTMLInputElement>)}
                         aria-label={'Clear input'}
                         title={'Clear input'}
                     >
@@ -104,19 +104,21 @@ const InputBox = ({
                         aria-label={showPassword ? "Hide password" : "Show password"}
                         title={showPassword ? "Hide password" : "Show password"}
                     >
-                        {showPassword ? (
-                            <EyeOff className="h-4 w-4" />
-                        ) : (
-                            <Eye className="h-4 w-4" />
-                        )}
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                 )}
             </div>
+            {loading && (
+                <div className='flex items-center gap-1 text-blue-500'>
+                    <span className="inline-block w-3 h-3 border-2 border-t-transparent border-blue-700 rounded-full animate-spin"></span>
+                    <div className='text-xs font-bold text-blue-700'>Loading...</div>
+                </div>
+            )}
             {helperText && !invalid && (
-                <small className="text-xs text-gray-500">{helperText}</small>
+                <small className="text-xs text-gray-500 flex gap-1 items-center"><InfoIcon size={12} />{helperText}</small>
             )}
             {invalid && errorMessage && (
-                <small className="text-xs text-red-600">{errorMessage}</small>
+                <small className="text-xs text-red-600 flex gap-1 items-center"><MessageCircleWarning size={12} />{errorMessage}</small>
             )}
 
 
