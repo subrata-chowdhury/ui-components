@@ -121,7 +121,7 @@ There are two routes which showcase the Demo UI or Example Useage of the compone
 `/`: Contains a simple login page showcaseing Component 1: InputField.  
 <img width="573" height="503" alt="image" src="https://github.com/user-attachments/assets/b2cbd16c-1313-4186-80f6-a94d2f954cfe" />
 
-'/dashboard': Contains a simple dashboard showcaseing the Component 2: DataTable
+`/dashboard`: Contains a simple dashboard showcaseing the Component 2: DataTable
 <img width="1208" height="438" alt="image" src="https://github.com/user-attachments/assets/b43d48ab-efa3-4dfe-830d-966d53722d04" />
 
 
