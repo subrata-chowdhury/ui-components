@@ -34,11 +34,11 @@ const DataTable = <T,>({
     }, [data]);
 
     return (
-        <div className="overflow-x-auto rounded-md border border-gray-300">
+        <div className="overflow-x-auto w-full rounded-md border border-gray-300">
             <table className="min-w-full">
                 <thead className="bg-gray-100">
                     <tr>
-                        {selectable && <th className="p-2 px-3 border-b border-gray-300 dark:bg-gray-700">
+                        {selectable && <th className="p-2 px-4 border-b border-gray-300 dark:bg-gray-700">
                             <input
                                 type="checkbox"
                                 className='cursor-pointer'
@@ -59,7 +59,7 @@ const DataTable = <T,>({
                             />
                         </th>}
                         {columns.map((col) => (
-                            <th key={col.key} className="p-2 px-3 text-left border-b border-gray-300 dark:bg-gray-700">
+                            <th key={col.key} className="p-2 px-4 text-left border-b border-gray-300 dark:bg-gray-700">
                                 {col.title}
                                 {col.sortable && <span className="ml-1 cursor-pointer" onClick={() => {
                                     setSelectedRows(Array(data.length).fill(false));
@@ -83,7 +83,7 @@ const DataTable = <T,>({
                 <tbody>
                     {loading ? (
                         <tr>
-                            <td colSpan={columns.length + (selectable ? 1 : 0)} className="p-2 px-3 text-center dark:bg-gray-950">
+                            <td colSpan={columns.length + (selectable ? 1 : 0)} className="p-2 px-4 text-center dark:bg-gray-950">
                                 <span className="inline-block w-6 h-6 border-2 border-t-transparent border-blue-700 rounded-full animate-spin"></span>
                             </td>
                         </tr>
@@ -96,7 +96,7 @@ const DataTable = <T,>({
                     ) : (
                         tableData.map((item, rowIndex) => (
                             <tr key={rowIndex} className="hover:bg-gray-50 has-[:checked]:bg-blue-200/40 ">
-                                {selectable && <td className="p-2 px-3 border-b border-gray-300 text-center">
+                                {selectable && <td className="p-2 px-4 border-b border-gray-300 text-center">
                                     <input
                                         type="checkbox"
                                         className='cursor-pointer outline-0 border-2 border-gray-100 p-0.5'
@@ -116,7 +116,7 @@ const DataTable = <T,>({
                                     />
                                 </td>}
                                 {columns.map((col) => (
-                                    <td key={col.key} className="p-2 px-3 border-b border-gray-300">
+                                    <td key={col.key} className="p-2 px-4 border-b border-gray-300">
                                         {String(item[col.dataIndex as keyof T])}
                                     </td>
                                 ))}

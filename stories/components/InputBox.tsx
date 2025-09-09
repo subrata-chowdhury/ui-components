@@ -43,12 +43,11 @@ const InputBox = ({
     return (
         <div
             className={`flex flex-col gap-1 rounded 
-                ${size === 'sm' ? 'p-2' : (size === 'lg' ? 'p-4' : 'p-3')} 
                 ${disabled ? 'opacity-50 cursor-not-allowed' : ''} 
                 ${invalid ? 'border-red-500' : ''}`}>
             {label && (
                 <label
-                    htmlFor="inputbox-input"
+                    htmlFor={"inputbox-input" + label.replace(/\s+/g, '-').toLowerCase()}
                     className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
                     {label}
@@ -56,7 +55,7 @@ const InputBox = ({
             )}
             <div className='flex'>
                 <input
-                    id="inputbox-input"
+                    id={"inputbox-input" + label?.replace(/\s+/g, '-').toLowerCase()}
                     type={type === "password" ? (showPassword ? "text" : "password") : type}
                     value={value}
                     onChange={onChange}
@@ -84,6 +83,7 @@ const InputBox = ({
                         type="button"
                         className={`text-gray-400 hover:text-gray-600 px-2 border border-l-0 cursor-pointer rounded rounded-l-none
                             ${(passwordToggle && type === "password") ? 'rounded-r-none' : ''}
+                            ${invalid ? 'border-red-500 ring-red-500' : ''}
                             ${variant === 'filled' ? 'bg-gray-100 dark:bg-gray-800 border-gray-300'
                                 : (variant === 'outlined' ? 'border-gray-300' : 'bg-transparent border-none')}`}
                         onClick={() => onChange?.({ target: { value: "" } } as React.ChangeEvent<HTMLInputElement>)}
@@ -98,6 +98,7 @@ const InputBox = ({
                         name='password-toggle'
                         type="button"
                         className={`text-gray-400 hover:text-gray-600 px-2 rounded border border-l-0 rounded-l-none cursor-pointer 
+                            ${invalid ? 'border-red-500 ring-red-500' : ''}
                             ${variant === 'filled' ? 'bg-gray-100 dark:bg-gray-800 border-gray-300'
                                 : (variant === 'outlined' ? 'border-gray-300' : 'bg-transparent border-none')}`}
                         onClick={() => setShowPassword((prev) => !prev)}
