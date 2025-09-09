@@ -10,6 +10,11 @@ Follow this steps to set up the project.
 
 **Tech Stack Used:** React.js, TypeScript, TailwindCSS, Storybook
 
+## Live URLs
+
+Demo UI Deploy URL: https://ui-components-silk.vercel.app/  
+Storybook Deploy URL: https://ui-components-qvf3.vercel.app/
+
 ## Description
 
 This repository contains 2 Components  
