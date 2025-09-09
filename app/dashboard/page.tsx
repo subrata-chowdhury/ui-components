@@ -1,10 +1,10 @@
 
 'use client';
 import DataTable from '@/stories/components/DataTable'
-import { Pen, Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 import React, { useState } from 'react'
 
-const page = () => {
+const Page = () => {
     const [users, setUsers] = useState([
         { id: 1, name: "Subrata", email: "sub@example.com" },
         { id: 2, name: "Sayan", email: "say@example.com" },
@@ -70,4 +70,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

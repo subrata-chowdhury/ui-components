@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "storybook": {
+      "outputDirectory": "storybook-static"
+    }
+  }
+}
